@@ -4,4 +4,10 @@
 *.gz
 *.toc
 *.bbl
+*.bib
+*.bbl
+*.vrb
+*.snm
+*.nav
 *.tex
+*.sty

@@ -1,0 +1,226 @@
+%%% Defining the preamble
+\mode<presentation>
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage{color}
+
+\def\master#1{\gdef\@master{#1}}
+\def\@master{\@latex@warning@no@line{No \noexpand\master given}}
+
+\def\course#1{\gdef\@course{#1}}
+\def\@course{\@latex@warning@no@line{No \noexpand\course given}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%%		Color theme
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Here we are defining only two colours. We are primarily only going to use the first one.
+\definecolor{Ftitle}{rgb}{0, 0, 0} % (rgb - 0, 0, 0) is nothing but black
+% Here, we are using "rgb" in small case and this notation for decimal values of "rgb" ranging from 0 to 1
+
+% To specify the integer values of "RGB", ranging from 0 t0 255, we need to use the "RGB" in CAPS or UPPERCASE 
+\definecolor{Descitem}{RGB}{0, 0, 139} % Darkish blue
+
+\definecolor{StdTitle}{RGB}{26, 33, 141}
+\definecolor{StdBody}{RGB}{213,24,0}
+
+\definecolor{AlTitle}{RGB}{255, 190, 190}
+\definecolor{AlBody}{RGB}{213,24,0}
+
+\definecolor{ExTitle}{RGB}{201, 217, 217}
+\definecolor{ExBody}{RGB}{213,24,0}
+
+
+% Another color for the background canvas using the blending option
+%\definecolor{BgShade}{red!30!white}
+%%% Important note: While trying this, I found out that a colour cannot be defined this way, it can only be set or called for a particular feature using the \setbeamercolor{}{} command. We will use this below to show this.
+
+%%%%%%
+% Assign colours to different constitutens of the presentation as per the requriements.
+%%%%%%
+
+% This sets the colour of the title of the presentation and titles of all the slides in the presentation to black.
+\setbeamercolor{frametitle}{fg = Ftitle}
+\setbeamercolor{title}{fg = Ftitle}
+
+% In case you choose to display the Table of Contents, or the Outline slide.
+\setbeamercolor{section in toc}{fg = Ftitle}
+\setbeamercolor{section in toc shaded}{fg = Ftitle} 
+
+% The colour of all the items, subitems and and subsubitems are set to black.
+\setbeamercolor{item}{fg = Ftitle}
+\setbeamercolor{subitem}{fg = Ftitle}
+\setbeamercolor{subsubitem}{fg = Ftitle}
+
+% This sets the color for each item heading of the description environment.
+\setbeamercolor{description item}{fg = Descitem}
+
+% We also need to fix the colours for captions for figures and tables.
+\setbeamercolor{caption}{fg = Ftitle}
+\setbeamercolor{caption name}{fg = Ftitle}
+
+
+\setbeamercolor{block title}{fg = Descitem, bg = StdTitle!15!white}
+\setbeamercolor{block body}{bg = StdBody!5!white}
+
+% Alert block
+\setbeamercolor{block title alerted}{bg = AlTitle}
+\setbeamercolor{block body alerted}{bg = AlBody!5!white}
+
+% Example block
+\setbeamercolor{block title example}{bg = ExTitle}
+\setbeamercolor{block body example}{bg = ExBody!5!white}
+
+
+%%%%%%
+% And one final thing, the colour of the text
+\setbeamercolor{normal text}{fg = Ftitle}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%%		Font theme
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usefonttheme{serif} 
+%\usefonttheme{professionalfonts}         % Here we are using default fonts
+\setbeamerfont{title}{size = \huge}       % Font for the presentation title
+\setbeamerfont{frametitle}{size = \Large} % Font of the frame titles
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%%		Inner theme
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+% Here we am using the rounded theme for the overall "feel" of the presentation. You can change the specific details by editing that particular option as we have done below.
+\useinnertheme{rounded}
+
+% Instead of rounded circles, we will use triangles as the indicator for items.
+\setbeamertemplate{itemize items}[triangle]
+
+% The default option for enumerate environment removes the circles around the numbers provided by the "rounded" inner theme. Just simple numbers remain.
+\setbeamertemplate{enumerate items}[default]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%%		Outer theme
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\definecolor{brownuam}{RGB}{165,100,68}
+\definecolor{yellowuam}{RGB}{240,162,46}
+\definecolor{greenuam}{RGB}{0,170,97}
+
+\setbeamercolor{title in head/foot}{fg=white,bg=greenuam}
+\setbeamercolor{section in head/foot}{fg=white,bg=brownuam}
+\setbeamercolor{subsection in head/foot}{fg=white,bg=yellowuam}
+\setbeamercolor{pagenumber in footer}{fg=white,bg=yellowuam}
+
+\newcommand{\LogoLine}{%
+  \raisebox{-12mm}[0pt][0pt]{%
+   	\begin{pgfpicture}{0mm}{0mm}{0mm}{0mm}
+    	 \pgfsetlinewidth{0.28mm}
+    	  \color{gray}
+      	\pgfline{\pgfpoint{8mm}{1mm}}{\pgfpoint{11.8cm}{1mm}}
+    \end{pgfpicture}
+  }
+}
+
+\setbeamertemplate{headline}{
+
+\ifnum \insertpagenumber=1
+	\leavevmode%
+  	\hbox{\fontsize{8}{9}\selectfont%
+  	\begin{beamercolorbox}[wd=.08\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
+	\hspace*{-0.76ex}    
+    \vspace*{-0.35ex}
+    \includegraphics[scale=0.035]{logo_uam_blanco.png}
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.52\paperwidth,ht=2.25ex,dp=1ex,center]{section in head/foot}%
+    \@master
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.4\paperwidth,ht=2.25ex,dp=1ex,center]{subsection in head/foot}%
+    \@course
+  \end{beamercolorbox}%
+  	}%
+\else
+	%\LogoLine
+\fi
+}
+
+\setbeamertemplate{frametitle}{
+\vspace*{4mm}\hspace*{0mm}\insertframetitle}
+
+\setbeamertemplate{footline}
+{
+
+	\ifnum \insertpagenumber=1
+      \leavevmode%
+      \hbox{\fontsize{8}{9}\selectfont%
+      \begin{beamercolorbox}[wd=0.5\paperwidth,ht=2.25ex,dp=1ex,center]{section in head/foot}%
+        %
+      \end{beamercolorbox}%
+      \begin{beamercolorbox}[wd=0.5\paperwidth,ht=2.25ex,dp=1ex,center]{subsection in head/foot}%
+        \insertauthor
+      \end{beamercolorbox}}%
+      \vskip0pt%
+    \else
+  \leavevmode%
+  \hbox{\fontsize{8}{9}\selectfont%
+  \begin{beamercolorbox}[wd=.08\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
+	\hspace*{-0.76ex}    
+    \vspace*{-0.35ex}
+    \includegraphics[scale=0.035]{logo_uam_blanco.png}
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.47\paperwidth,ht=2.25ex,dp=1ex,center]{section in head/foot}%
+    \@master
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.35\paperwidth,ht=2.25ex,dp=1ex,center]{subsection in head/foot}%
+    \@course
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.1\paperwidth,ht=2.25ex,dp=1ex,center]{pagenumber in footer}%
+   \insertframenumber{} / \inserttotalframenumber%\hspace*{2ex} 
+  \end{beamercolorbox}}%
+  \vskip0pt%
+  \fi
+}
+  	
+\setbeamertemplate{navigation symbols}{}
+
+\setbeamertemplate{title page}{
+	\begin{center}
+	\vspace*{0.8cm}	
+	{\Large \textbf{\inserttitle}} \\
+	\vspace*{0.5cm}	
+	\insertauthor \\
+	\vspace*{0.2cm}
+	%{\footnotesize \textit{\insertinstitute}} \\
+	\vspace*{0.2cm}
+	%{\footnotesize \insertdate} \\
+	\vspace*{0.8cm}
+
+	
+%	\begin{figure}[ht]
+%	\begin{minipage}[b]{0.45\linewidth}
+%	\centering
+%	\includegraphics[width=0.9\textwidth]{./img/logo_uam.jpg}
+%	\end{minipage}
+%	\hspace*{0.8 cm}
+%	\begin{minipage}[b]{0.45\linewidth}
+%	\centering	
+%	\includegraphics[width=0.7\textwidth]{./img/logo_eps.pdf}
+%	\end{minipage}
+%	\end{figure}
+	
+	\end{center}
+}
+
+
+
+\mode
+<all>  	  
